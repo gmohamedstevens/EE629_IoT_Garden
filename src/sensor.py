@@ -1,5 +1,6 @@
-def test():
-        return 1
-
-def readSensor(i):
-        return i
+class Camera:
+        # Object initialization
+        def __init__(self):
+                pass
+        def takePhoto(self):
+                print("SNAP! A photo has been taken.")
