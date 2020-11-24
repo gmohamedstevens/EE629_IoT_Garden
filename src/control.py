@@ -1,28 +1,37 @@
-class Pump:
-    # Object initialization
-    def __init__(self):
-        self.pumpOnFlag = False
-    # Returns if pump is on
-    def pumpIsOn(self):
-        return self.pumpOnFlag
-    # Turn off the water pump
-    def turnOffPump(self):
-        self.pumpOnFlag = False
-    # Turn on the water pump
-    def turnOnPump(self):
-        self.pumpOnFlag = True
+# Parent control class
+class Control:
+    def __init__(self, pin):
+        self.GPIOPin = pin
+        self.onFlag = False
+    # Returns if control is on
+    def isOn(self):
+        return self.onFlag
+    # Returns if control is off
+    def isOff(self):
+        return not self.onFlag
+    # Turn off control
+    def turnOff(self):
+        self.onFlag = False
+    # Turn on control
+    def turnOn(self):
+        self.onFlag = True
+    # Return the GPIO pin the control is attached to
+    def returnGPIOPin(self):
+        return self.GPIOPin
+    # Set the GPIO pin the control is attached to
+    def setGPIOPin(self, pin):
+        self.GPIOPin = pin
 
-
-class Lamp:
+class Pump(Control):
     # Object initialization
-    def __init__(self):
-        self.lampOnFlag = False
-    # Retutns if lamps is on
-    def lampIsOn(self):
-        return self.lampOnFlag
-    # Turn off the lamp
-    def turnOffLamp(self):
-        self.lampOnFlag = False
-    # Turn on the lamp
-    def turnOnLamp(self):
-        self.lampOnFlag = True
+    def __init__(self, pin):
+        Control.__init__(self, pin)
+        self.pumpFlowRate = 0.5
+
+    def returnFlowRate(self):
+        return self.pumpFlowRate
+
+class Lamp(Control):
+    # Object initialization
+    def __init__(self, pin):
+        Control.__init__(self, pin)
