@@ -1,8 +1,12 @@
 class Camera:
         # Object initialization
         def __init__(self):
-                liveFeedPhoto = 1;
+                self.liveFeedPhoto = 1;
+                self.cameraConnectedFlag = False;
                 pass
+        # Returns if a camera is connected to the Pi
+        def isConnected(self):
+                return self.cameraConnectedFlag
         # Take photo using webcam and return
         def takePhoto(self):
                 print("SNAP! A photo has been taken")
@@ -18,8 +22,14 @@ class Camera:
 
 class Sensor:
         # Object initialization
-        def __init__(self, id):
-                self.id = id;
-        #
+        def __init__(self, pin):
+                self.GPIOPin = pin
+        # Returns the reading of the sensor
         def read(self):
                 pass
+        # Return the GPIO pin the control is attached to
+        def returnGPIOPin(self):
+                return self.GPIOPin
+        # Set the GPIO pin the control is attached to
+        def setGPIOPin(self, pin):
+                self.GPIOPin = pin

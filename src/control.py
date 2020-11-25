@@ -1,5 +1,6 @@
 # Parent control class
 class Control:
+    # Object initialization
     def __init__(self, pin):
         self.GPIOPin = pin
         self.onFlag = False
@@ -26,10 +27,6 @@ class Pump(Control):
     # Object initialization
     def __init__(self, pin):
         Control.__init__(self, pin)
-        self.pumpFlowRate = 0.5
-
-    def returnFlowRate(self):
-        return self.pumpFlowRate
 
 class Lamp(Control):
     # Object initialization
