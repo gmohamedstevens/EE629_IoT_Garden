@@ -1,32 +1,38 @@
-class Camera:
-        # Object initialization
-        def __init__(self):
-                self.liveFeedPhoto = 1;
-                self.cameraConnectedFlag = False;
-                pass
-        # Returns if a camera is connected to the Pi
-        def isConnected(self):
-                return self.cameraConnectedFlag
-        # Take photo using webcam and return
-        def takePhoto(self):
-                print("SNAP! A photo has been taken")
-                return 1
-        # Update the live feed with a photo
-        def updateLiveFeed(self, photo):
-                self.liveFeedPhoto = photo
-                print("Live feed updated")
-        # Adds photo to the time lapse
-        def addToTimeLapse(self, photo):
-                print("Added photo to time-lapse")
+import board
+import adafruit_dht
 
-
-class Sensor:
+class ACSensor:
         # Object initialization
-        def __init__(self, pin):
+        def __init__(self, pin, channel):
                 self.GPIOPin = pin
+                self.channel = channel
         # Returns the reading of the sensor
         def read(self):
                 pass
+        # Return the GPIO pin the control is attached to
+        def returnGPIOPin(self):
+                return self.GPIOPin
+        # Set the GPIO pin the control is attached to
+        def setGPIOPin(self, pin):
+                self.GPIOPin = pin
+                
+class DHTSensor:
+        # Object initialization
+        def __init__(self, pin):
+                self.GPIOPin = pin
+                self.dhtDevice = adafruit_dht.DHT22(pin)
+        # Returns the temperature reading of the sensor
+        def readTemperature(self):
+            try:
+                return self.dhtDevice.temperature
+            except RuntimeError as error:
+                print(error.args[0])
+        # Returns the humidity reading of the sensor
+        def readHumidity(self):
+            try:
+                return self.dhtDevice.humidity
+            except RuntimeError as error:
+                print(error.args[0])
         # Return the GPIO pin the control is attached to
         def returnGPIOPin(self):
                 return self.GPIOPin

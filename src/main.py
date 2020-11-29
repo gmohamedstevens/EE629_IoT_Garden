@@ -1,52 +1,56 @@
+# IoT Garden Monitor
+# by Gamal Mohamed
+# LIBRARIES USED:
+# GPIOZero - Control of GPIO pins for sensors, lamp, pump, etc.
+# CircuitPythonDHT - Reading temperature/humidity data from Adafruit DHT11 Sensor
+# libgpiod2 - ???
+# Board - Pin ids for DHT sensor
+
 from sensor import *
 from database import *
 from control import *
+from camera import *
+from time import sleep
+
+import board
 
 ##################
 # INITIALIZATION #
 ##################
-pumpControl = Pump(18)
-lampControl = Lamp(24)
+pumpControl = Pump("GPIO18")
+lampControl = Lamp("GPIO24")
 cameraControl = Camera()
 
-tempSensor = Sensor(1)
-lightSensor = Sensor(2)
+tempSensor = DHTSensor(board.D16)
+lightSensor = ACSensor("GPIO6", 1)
 
 #####################
 # MAIN PROGRAM LOOP #
 #####################
 mainLoopFlag = True
 while(mainLoopFlag):
-    ##################
-    # CAMERA CONTROL #
-    ##################
-    photo = cameraControl.takePhoto()
-    cameraControl.addToTimeLapse(photo)
-    cameraControl.updateLiveFeed(photo)
-    ##################
-    # SENSOR CONTROL #
-    ##################
+    ##########
+    # CAMERA #
+    ##########
+    #photo = cameraControl.takePhoto()
+    #cameraControl.addToTimeLapse(photo)
+    #cameraControl.updateLiveFeed(photo)
+    ##########
+    # SENSOR #
+    ##########
+    print("Temperature")
+    print(tempSensor.readTemperature())
+    
+    ############
+    # DATABASE #
+    ############
 
-    ####################
-    # DATABASE CONTROL #
-    ####################
-
-    mainLoopFlag = False
-
+    #mainLoopFlag = False
+    
 ################
 # TEST SECTION #
 ################
-print()
-if lampControl.isOn():
-    print("Lamp is on")
-else:
-    print("Lamp is off")
-lampControl.turnOn()
-if not lampControl.isOff():
-    print("Lamp is on")
-else:
-    print("Lamp is off")
 
-print()
-print("The lamp is attached to GPIO pin " + str(lampControl.returnGPIOPin()))
-print("The pump is attached to GPIO pin " + str(pumpControl.returnGPIOPin()))
+print("Temperature")
+#print(tempSensor.dhtDevice.temperature)
+test = tempSensor.dhtDevice.temperature
