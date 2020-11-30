@@ -1,10 +1,12 @@
 # IoT Garden Monitor
 # by Gamal Mohamed
+#
 # LIBRARIES USED:
-# GPIOZero - Control of GPIO pins for sensors, lamp, pump, etc.
+# GPIOZero - Control of GPIO pins for sensors, lamp, pump, etc. and reading MCP3008 channels
 # CircuitPythonDHT - Reading temperature/humidity data from Adafruit DHT11 Sensor
 # libgpiod2 - ???
 # Board - Pin ids for DHT sensor
+# adafruit-mcp3000 - Reading AC sensor readings
 
 from sensor import *
 from database import *
@@ -17,17 +19,19 @@ import board
 ##################
 # INITIALIZATION #
 ##################
-pumpControl = Pump("GPIO18")
-lampControl = Lamp("GPIO24")
+pumpRelay = Pump("GPIO25")
+lampRelay = Lamp("GPIO24")
 cameraControl = Camera()
 
-tempSensor = DHTSensor(board.D16)
-lightSensor = ACSensor("GPIO6", 1)
+#tempSensor = DHTSensor(board.D16)
+lightSensor = MCPSensor(0)
+moistureSensor = MCPSensor(1)
 
 #####################
 # MAIN PROGRAM LOOP #
 #####################
 mainLoopFlag = True
+count = 0
 while(mainLoopFlag):
     ##########
     # CAMERA #
@@ -38,19 +42,26 @@ while(mainLoopFlag):
     ##########
     # SENSOR #
     ##########
-    print("Temperature")
-    print(tempSensor.readTemperature())
-    
+    print("Light Sensor")
+    print(lightSensor.read())
+    print("Moisture Sensor")
+    print(moistureSensor.read())
     ############
     # DATABASE #
     ############
-
-    #mainLoopFlag = False
+    sleep(0.5)
+    if (count < 10):
+        count += 1
+    else:
+        mainLoopFlag = False
     
 ################
 # TEST SECTION #
 ################
 
-print("Temperature")
+#print("Temperature")
 #print(tempSensor.dhtDevice.temperature)
-test = tempSensor.dhtDevice.temperature
+#test = tempSensor.dhtDevice.temperature
+lampRelay.turnOn()
+sleep(1)
+lampRelay.turnOff()
