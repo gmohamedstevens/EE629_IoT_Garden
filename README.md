@@ -1,4 +1,4 @@
-### EE629 IoT Garden
+### EE629 IoT Garden Monitor
 ###### By Gamal Mohamed
 
 **Project: IoT Garden Monitor**
