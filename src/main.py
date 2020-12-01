@@ -6,6 +6,7 @@
 # CircuitPythonDHT - Reading temperature/humidity data from Adafruit DHT11 Sensor
 # Board - Pin ids for DHT sensor
 # Multiprocessing - for running multple processes (sensing, web server, image capture)
+# Pygame.camera - image capture through OpenCV
 
 from sensor import *
 from database import *
@@ -39,10 +40,17 @@ def sensors():
         print("Moisture Sensor")
         print(moistureSensor.read())
         sleep(1)
+        
+def test():
+    while True:
+        print("Hello :)")
+        sleep(0.5)
     
 processSensors = multiprocessing.Process(target=sensors) 
 processSensors.start()
 
+processTest = multiprocessing.Process(target=test) 
+processTest.start()
 #####################
 # MAIN PROGRAM LOOP #
 #####################
@@ -75,6 +83,7 @@ while(mainLoopFlag):
 # TEST SECTION #
 ################
 
+
 #print("Temperature")
 #print(tempSensor.dhtDevice.temperature)
 #test = tempSensor.dhtDevice.temperature
@@ -82,8 +91,15 @@ lampRelay.turnOn()
 sleep(1)
 lampRelay.turnOff()
 
+cameraControl.startCam()
+image = cameraControl.takePhoto()
+cameraControl.savePhoto(image, 'img/picture.jpg')
+cameraControl.stopCam()
+
 #################
 # END PROCESSES #
 #################
 processSensors.terminate()
 processSensors.join()
+processTest.terminate()
+processTest.join()
