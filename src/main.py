@@ -4,17 +4,17 @@
 # LIBRARIES USED:
 # GPIOZero - Control of GPIO pins for sensors, lamp, pump, etc. and reading MCP3008 channels
 # CircuitPythonDHT - Reading temperature/humidity data from Adafruit DHT11 Sensor
-# libgpiod2 - ???
 # Board - Pin ids for DHT sensor
-# adafruit-mcp3000 - Reading AC sensor readings
+# Multiprocessing - for running multple processes (sensing, web server, image capture)
 
 from sensor import *
 from database import *
 from control import *
 from camera import *
-from time import sleep
 
+from time import sleep
 import board
+import multiprocessing
 
 ##################
 # INITIALIZATION #
@@ -26,6 +26,22 @@ cameraControl = Camera()
 #tempSensor = DHTSensor(board.D16)
 lightSensor = MCPSensor(0)
 moistureSensor = MCPSensor(1)
+sensor = MCPSensor(0)
+
+#############
+# PROCESSES #
+#############
+
+def sensors():
+    while True:
+        print("Light Sensor")
+        print(lightSensor.read())
+        print("Moisture Sensor")
+        print(moistureSensor.read())
+        sleep(1)
+    
+processSensors = multiprocessing.Process(target=sensors) 
+processSensors.start()
 
 #####################
 # MAIN PROGRAM LOOP #
@@ -42,10 +58,10 @@ while(mainLoopFlag):
     ##########
     # SENSOR #
     ##########
-    print("Light Sensor")
-    print(lightSensor.read())
-    print("Moisture Sensor")
-    print(moistureSensor.read())
+    #print("Light Sensor")
+    #print(lightSensor.read())
+    #print("Moisture Sensor")
+    #print(moistureSensor.read())
     ############
     # DATABASE #
     ############
@@ -65,3 +81,9 @@ while(mainLoopFlag):
 lampRelay.turnOn()
 sleep(1)
 lampRelay.turnOff()
+
+#################
+# END PROCESSES #
+#################
+processSensors.terminate()
+processSensors.join()

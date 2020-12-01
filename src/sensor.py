@@ -18,8 +18,9 @@ class MCPSensor:
     def returnChannel(self):
             return self.channel
     # Set the GPIO pin the control is attached to
-    def setChannel(self, channel):
-            self.channel = channel
+    def setChannel(self, ch):
+            self.channel = ch
+            self.mcp = MCP3008(channel=ch)
                 
 class DHTSensor:
     # Object initialization

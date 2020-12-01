@@ -1,9 +1,9 @@
 ### EE629 IoT Garden Monitor
 ###### By Gamal Mohamed
 
-**Project: IoT Garden Monitor**
+**Project:** IoT Garden Monitor
 
-**Description: An automated plant monitoring system. Functions include sensing and reporting plant metrics, water pump and lamp control, and webcam streaming**
+**Description:** An automated plant monitoring system. Functions include sensing and reporting plant metrics, water pump and lamp control, and webcam streaming
 
 #########################
 
