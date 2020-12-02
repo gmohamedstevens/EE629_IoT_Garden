@@ -1,6 +1,7 @@
 import cv2
-face_cascade=cv2.CascadeClassifier("haarcascade_frontalface_alt2.xml")
-ds_factor=0.6
+import datetime 
+#face_cascade=cv2.CascadeClassifier("haarcascade_frontalface_alt2.xml")
+#ds_factor=0.6
 
 class VideoCamera(object):
     def __init__(self):
@@ -10,12 +11,15 @@ class VideoCamera(object):
         self.video.release()
     
     def get_frame(self):
-        success, image = self.video.read()
-        #image=cv2.resize(image,None,fx=ds_factor,fy=ds_factor,interpolation=cv2.INTER_AREA)
-        #gray=cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
-        #face_rects=face_cascade.detectMultiScale(gray,1.3,5)
-        #for (x,y,w,h) in face_rects:
-            #cv2.rectangle(image,(x,y),(x+w,y+h),(0,255,0),2)
-            #break
+        # tae photo from camera
+        success, image = self.video.read() # take photo from camera
+        # add timestamp to photo
+        xpos = 10
+        ypos = 475
+        font = cv2.FONT_HERSHEY_SIMPLEX
+        fontsize = 0.75
+        color = (255, 255, 255)
+        thickness = 2
+        image = cv2.putText(image, str(datetime.datetime.now()), (xpos,ypos), font, fontsize, color, thickness, cv2.LINE_AA)
         ret, jpeg = cv2.imencode('.jpg', image)
         return jpeg.tobytes()
