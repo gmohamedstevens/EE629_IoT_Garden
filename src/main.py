@@ -11,7 +11,14 @@
 from sensor import *
 from database import *
 from control import *
-from camera import *
+#from camera import *
+
+
+from flask_server import *
+from flask import Flask, render_template, Response
+#import camera_opencv
+#from camera_opencv import VideoCamera
+
 
 from time import sleep
 import board
@@ -20,43 +27,50 @@ import multiprocessing
 ##################
 # INITIALIZATION #
 ##################
-pumpRelay = Pump("GPIO25")
-lampRelay = Lamp("GPIO24")
-cameraControl = Camera()
+pump_relay = Pump("GPIO25")
+lamp_relay = Lamp("GPIO24")
+#camera_control = Camera()
 
 #tempSensor = DHTSensor(board.D16)
-lightSensor = MCPSensor(0)
-moistureSensor = MCPSensor(1)
+light_sensor = MCPSensor(0)
+moisture_sensor = MCPSensor(1)
 sensor = MCPSensor(0)
+
+app = Flask(__name__)
 
 #############
 # PROCESSES #
 #############
-
 def sensors():
-    while True:
-        print("Light Sensor")
-        print(lightSensor.read())
-        print("Moisture Sensor")
-        print(moistureSensor.read())
-        sleep(1)
+    #while True:
+        #print("Light Sensor")
+        #print(light_sensor.read())
+        #print("Moisture Sensor")
+        #print(moisture_sensor.read())
+        #sleep(1)
+    pass
         
+def flask_server():
+    server = FlaskServer()
+    server.app.run(host='0.0.0.0',port='5000', debug=True)
+
 def test():
     while True:
         print("Hello :)")
         sleep(0.5)
     
-processSensors = multiprocessing.Process(target=sensors) 
-processSensors.start()
+process_sensors = multiprocessing.Process(target=sensors) 
+process_sensors.start()
 
-processTest = multiprocessing.Process(target=test) 
-processTest.start()
+process_flask = multiprocessing.Process(target=flask_server) 
+process_flask.start()
+
 #####################
 # MAIN PROGRAM LOOP #
 #####################
-mainLoopFlag = True
+main_loop_flag = True
 count = 0
-while(mainLoopFlag):
+while(main_loop_flag):
     ##########
     # CAMERA #
     ##########
@@ -73,11 +87,11 @@ while(mainLoopFlag):
     ############
     # DATABASE #
     ############
-    sleep(0.5)
-    if (count < 10):
+    sleep(1)
+    if (count < 15):
         count += 1
     else:
-        mainLoopFlag = False
+        main_loop_flag = False
     
 ################
 # TEST SECTION #
@@ -87,19 +101,20 @@ while(mainLoopFlag):
 #print("Temperature")
 #print(tempSensor.dhtDevice.temperature)
 #test = tempSensor.dhtDevice.temperature
-lampRelay.turnOn()
+lamp_relay.turn_on()
 sleep(1)
-lampRelay.turnOff()
+lamp_relay.turn_off()
 
-cameraControl.startCam()
-image = cameraControl.takePhoto()
-cameraControl.savePhoto(image, 'img/picture.jpg')
-cameraControl.stopCam()
+#camera_control.start_cam()
+#image = camera_control.take_photo()
+#camera_control.save_photo(image, 'img/picture.jpg')
+#camera_control.stop_cam()
 
 #################
 # END PROCESSES #
 #################
-processSensors.terminate()
-processSensors.join()
-processTest.terminate()
-processTest.join()
+process_sensors.join()
+process_sensors.terminate()
+
+process_flask.join()
+process_flask.terminate()

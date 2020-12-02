@@ -4,7 +4,7 @@ import adafruit_dht
 import gpiozero
 from gpiozero import MCP3008
 
-class MCPSensor:
+class MCPSensor(object):
 
     # Object initialization
     def __init__(self, ch):
@@ -22,26 +22,26 @@ class MCPSensor:
         self.channel = ch
         self.mcp = MCP3008(channel=ch)
                 
-class DHTSensor:
+class DHTSensor(object):
     # Object initialization
     def __init__(self, pin):
-        self.GPIOPin = pin
-        self.dhtDevice = adafruit_dht.DHT22(pin)
+        self.gpio_pin = pin
+        self.dht_device = adafruit_dht.DHT22(pin)
     # Returns the temperature reading of the sensor
-    def readTemperature(self):
+    def read_temperature(self):
         try:
-            return self.dhtDevice.temperature
+            return self.dht_device.temperature
         except RuntimeError as error:
             print(error.args[0])
     # Returns the humidity reading of the sensor
-    def readHumidity(self):
+    def read_humidity(self):
         try:
-            return self.dhtDevice.humidity
+            return self.dht_device.humidity
         except RuntimeError as error:
             print(error.args[0])
     # Return the GPIO pin the control is attached to
-    def returnGPIOPin(self):
-        return self.GPIOPin
+    def return_gpio_pin(self):
+        return self.gpio_pin
     # Set the GPIO pin the control is attached to
-    def setGPIOPin(self, pin):
-        self.GPIOPin = pin
+    def set_gpio_pin(self, pin):
+        self.gpio_pin = pin

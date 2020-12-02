@@ -1,7 +1,7 @@
 import pygame.camera
 from datetime import datetime
 
-class Camera:
+class Camera(object):
     
     width = 640
     height = 480
@@ -10,30 +10,31 @@ class Camera:
     
     # Object initialization
     def __init__(self):
-        self.liveFeedPhoto = 1;
-        self.cameraConnectedFlag = False;
+        self.live_feed_photo = 1;
+        self.camera_connected_flag = False;
     # Starts the camera for capturing images
-    def startCam(self):
-        Camera.cam.start()
+    def start_cam(self):
+        cls.cam.start()
     # Stops the camera after image has been taken
-    def stopCam(self):
-        Camera.cam.stop()
+    def stop_cam(self):
+        cls.cam.stop()
     # Returns if a camera is connected to the Pi
-    def isConnected(self):
-        return self.cameraConnectedFlag
+    def is_connected(self):
+        return self.camera_connected_flag
     # Take photo using webcam and return
-    def takePhoto(self):
-        image = Camera.cam.get_image()
+    def take_photo(self):
+        image = cls.cam.get_image()
         return image
-    def timeStampPhoto(self, image):
+    # Add timestamp to photo of current time
+    def time_stamp_photo(self, image):
         return image
     # Save a photo to memory
-    def savePhoto(self, image, dest):
+    def save_photo(self, image, dest):
         pygame.image.save(image, dest)
     # Update the live feed with a photo
-    def updateLiveFeed(self, photo):
-        self.liveFeedPhoto = photo
+    def update_live_feed(self, photo):
+        self.live_feed_photo = photo
         print("Live feed updated")
     # Adds photo to the time lapse
-    def addToTimeLapse(self, photo):
+    def add_to_time_lapse(self, photo):
         print("Added photo to time-lapse")
