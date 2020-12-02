@@ -9,34 +9,34 @@
 # Flask - Web server and network access
 # OpenCV - image capture from USB web cam
 
+####################
+# IMPORT LIBRARIES #
+####################
 # Monitor functions libraries
 from sensor import *
 from database import *
 from control import *
 # Flask web server libraries
 from flask_server import *
-from flask import Flask, render_template, Response
 # Misc. librariries
 from time import sleep
 import board
 import multiprocessing
 import threading
 import sys
-import os
 
 ##################
 # INITIALIZATION #
 ##################
 pump_relay = Pump("GPIO25")
 lamp_relay = Lamp("GPIO24")
-#camera_control = Camera()
 
-#tempSensor = DHTSensor(board.D16)
 light_sensor = MCPSensor(0)
 moisture_sensor = MCPSensor(1)
 sensor = MCPSensor(0)
 
 app = Flask(__name__)
+server = FlaskServer()
 
 #############
 # PROCESSES #
@@ -48,26 +48,31 @@ def sensors():
         print("Moisture Sensor")
         print(moisture_sensor.read())
         sleep(5)
-       
-server = FlaskServer()
+process_sensors = multiprocessing.Process(target=sensors)      
+
 def flask_server():
     server.app.run(host='0.0.0.0',port='5000', debug=True, use_reloader=False)
+process_flask = multiprocessing.Process(target=flask_server)
 
-def test():
-    while True:
-        print("Hello :)")
-        sleep(0.5)
-
-def main():
-    # Sensor data gathering process
+def start_processes():
+    # start sensor processes
     process_sensors.start()
-
+    print("Sensor process started.")        
+    # start flask process
+    process_flask.start()
+    print("Flask process started.")
+    
 def end_processes():
+    # terminate sensor process
     process_sensors.terminate()
     process_sensors.join()
-
+    print("Sensor process ended.")
+    sleep(1)
+    # terminate flask process
     process_flask.terminate()
     process_flask.join()
+    print("Flask process ended.")
+    sleep(1)
 
 #####################
 # MAIN PROGRAM LOOP #
@@ -78,29 +83,15 @@ if __name__ == '__main__':
     sleep(1)
     lamp_relay.turn_off()
     try:
-        # start sensor processes
-        process_sensors = multiprocessing.Process(target=sensors)
-        process_sensors.start()
-        print("sensors started")        
-        # start flask process
-        process_flask = multiprocessing.Process(target=flask_server)
-        process_flask.start()
+        start_processes() 
         # loop until keyboard interrupt is thrown
         main_loop_flag = True
         while main_loop_flag:
-            print("Hello :)")
-            sleep(0.5)
             pass
     except KeyboardInterrupt: 
-        # terminate sensor process
-        process_sensors.terminate()
-        process_sensors.join()
-        print("sensors ended")
-        # terminate flask process
-        process_flask.terminate()
-        process_flask.join()
-        print("flask ended")
+        end_processes()
         # exit program
-        print("Exiting program...")
+        print("Exiting program.")
+        sleep(1)
         sys.exit(0)
 
