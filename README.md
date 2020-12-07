@@ -5,7 +5,7 @@
 
 **Description:** An automated plant monitoring system. Functions include sensing and reporting plant metrics, water pump and lamp control, and webcam streaming
 
-#########################
+***
 
 **Weekly Update 2020-12-07:**
 
@@ -14,6 +14,7 @@ Accomplishments for this week:
 - Test Flask server running and live video feed operational
 - Running sensor collection and Flask server on separate processes for multitasking
 - Restructured main program loop to be more organized and exit gracefully
+
 In development for next week:
 - Update Flask template to be more user friendly and provide more data
 - Database connections and management through SQLite
@@ -28,7 +29,7 @@ References for threading and multiprocessing libraries
 - https://stackoverflow.com/questions/39258616/running-two-process-simultaneously
 - https://stackoverflow.com/questions/3044580/multiprocessing-vs-threading-python
 
-#########################
+***
 
 **Weekly Update 2020-11-29:**
 
@@ -44,7 +45,7 @@ References for GPIO configuration:
 - https://pinout.xyz/pinout/pin10_gpio15# - Raspberry Pi Pin Map
 - https://gpiozero.readthedocs.io/en/stable/recipes.html - MCP3008 GPIO Zero Configuration
 
-#########################
+***
 
 **Weekly Update 2020-11-23:**
 
@@ -56,7 +57,7 @@ Classes started:
 - Control - Handles automated and manual control of lamp and water pump
 Database - Collects data into database; for forwarding to user app
 
-#########################
+***
 
 **Weekly Update 2020-11-15:**
 
