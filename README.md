@@ -23,6 +23,7 @@ In development for next week:
 References for Flask and video streaming:
 - https://projects.raspberrypi.org/en/projects/python-web-server-with-flask
 - https://stackoverflow.com/questions/35616639/python-multiprocessing-in-flask
+
 References for threading and multiprocessing libraries
 - https://stackoverflow.com/questions/3044580/multiprocessing-vs-threading-python
 - https://cuyu.github.io/python/2016/08/15/Terminate-multiprocess-in-Python-correctly-and-gracefully
