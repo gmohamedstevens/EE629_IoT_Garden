@@ -7,6 +7,29 @@
 
 #########################
 
+**Weekly Update 2020-12-07:**
+
+Accomplishments for this week:
+- USB camera video capture implemented through OpenCV
+- Test Flask server running and live video feed operational
+- Running sensor collection and Flask server on separate processes for multitasking
+- Restructured main program loop to be more organized and exit gracefully
+In development for next week:
+- Update Flask template to be more user friendly and provide more data
+- Database connections and management through SQLite
+- Automated controls based on plant metrics
+
+References for Flask and video streaming:
+- https://projects.raspberrypi.org/en/projects/python-web-server-with-flask
+- https://stackoverflow.com/questions/35616639/python-multiprocessing-in-flask
+References for threading and multiprocessing libraries
+- https://stackoverflow.com/questions/3044580/multiprocessing-vs-threading-python
+- https://cuyu.github.io/python/2016/08/15/Terminate-multiprocess-in-Python-correctly-and-gracefully
+- https://stackoverflow.com/questions/39258616/running-two-process-simultaneously
+- https://stackoverflow.com/questions/3044580/multiprocessing-vs-threading-python
+
+#########################
+
 **Weekly Update 2020-11-29:**
 
 Since last week, the garden monitor is capable of monitoring the AC sensor input using an MCP3008 ADC converter. Also, I've used the GPIO Zero library to control the lamp and water pump through the GPIO pins.
