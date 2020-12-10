@@ -26,11 +26,13 @@ class Relay(object):
         self.gpio_pin = pin
         self.relay = gpiozero.OutputDevice(pin, active_high=False, initial_value=False)
 
+# Relay-controlled water pump
 class Pump(Relay):
     # Object initialization
     def __init__(self, pin):
         Relay.__init__(self, pin)
 
+# Relay-controlled lamp
 class Lamp(Relay):
     # Object initialization
     def __init__(self, pin):

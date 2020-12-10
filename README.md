@@ -5,6 +5,8 @@
 
 **Description:** An automated plant monitoring system. Functions include sensing and reporting plant metrics, water pump and lamp control, and webcam streaming
 
+![IoT Garden Monitor Diagram](/img/iot-plant-monitor-diagram.png)
+
 ***
 
 **Weekly Update 2020-12-07:**
@@ -24,7 +26,7 @@ References for Flask and video streaming:
 - https://projects.raspberrypi.org/en/projects/python-web-server-with-flask
 - https://stackoverflow.com/questions/35616639/python-multiprocessing-in-flask
 
-References for threading and multiprocessing libraries
+References for threading and multiprocessing libraries:
 - https://stackoverflow.com/questions/3044580/multiprocessing-vs-threading-python
 - https://cuyu.github.io/python/2016/08/15/Terminate-multiprocess-in-Python-correctly-and-gracefully
 - https://stackoverflow.com/questions/39258616/running-two-process-simultaneously
@@ -73,6 +75,3 @@ My goals for completing this project:
 - Sensor input monitoring
 - Raspberry Pi/web app interactions
 - Lamp and water pump control (manual and auto)
-
-
-![IoT Garden Monitor Diagram](/img/iot-plant-monitor-diagram.png)

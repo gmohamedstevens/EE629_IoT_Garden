@@ -4,8 +4,8 @@ import adafruit_dht
 import gpiozero
 from gpiozero import MCP3008
 
+# Analog sensor attached to MCP3008 channel
 class MCPSensor(object):
-
     # Object initialization
     def __init__(self, ch):
         self.channel = ch
@@ -21,7 +21,8 @@ class MCPSensor(object):
     def setChannel(self, ch):
         self.channel = ch
         self.mcp = MCP3008(channel=ch)
-                
+
+# DHT sensor manager
 class DHTSensor(object):
     # Object initialization
     def __init__(self, pin):
