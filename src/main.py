@@ -21,6 +21,7 @@ from control import *
 
 # Flask web server libraries
 from flask_server import *
+from camera_opencv import VideoCamera
 
 # Misc. librariries
 from time import sleep
@@ -28,6 +29,7 @@ import board
 import multiprocessing
 import threading
 import sys
+import datetime
 
 ##################
 # INITIALIZATION #
@@ -39,14 +41,22 @@ lamp_relay = Lamp("GPIO24")
 # Sensor objects for collecting sensor values
 light_sensor = MCPSensor(0)
 moisture_sensor = MCPSensor(1)
-sensor = MCPSensor(0)
+
+cam = VideoCamera()
 
 # Flask server object for managing server requests
-server = FlaskServer()
+server = FlaskServer(cam)
 
 # Database objects for collecting senosr and image data
-sensor_database = Database()
-sensor_database.create_connection('db/sensor_data.db')
+database_manager = Database()
+database_connection = database_manager.create_connection('db/data.db')
+database_manager.initialize_tables(database_connection)
+
+
+# database_manager.insert_light_sensor_data(database_connection, (str(datetime.datetime.now()), 1.0))
+# database_manager.insert_moisture_sensor_data(database_connection, (str(datetime.datetime.now()), 1.0))
+# database_manager.insert_image_data(database_connection, (str(datetime.datetime.now()), 1.0))
+
 
 #############
 # PROCESSES #
@@ -54,45 +64,62 @@ sensor_database.create_connection('db/sensor_data.db')
 # Process for capturing sensor data
 def sensors():
     while True:
+        sensor1 = light_sensor.read()
+        sensor2 = moisture_sensor.read()
         print("Light Sensor")
-        print(light_sensor.read())
+        print(sensor1)
         print("Moisture Sensor")
-        print(moisture_sensor.read())
+        print(sensor2)
+        # Write sensor data to database
+        #database_manager.insert_light_sensor_data(database_connection, (str(datetime.datetime.now()), sensor1))
+        #database_manager.insert_moisture_sensor_data(database_connection, (str(datetime.datetime.now()), sensor2))
         sleep(5)
-process_sensors = multiprocessing.Process(target=sensors)      
+process_sensors = multiprocessing.Process(target=sensors) 
 
 # Process for managing Flask server requests
 def flask_server():
     server.app.run(host='0.0.0.0',port='5000', debug=True, use_reloader=False)
 process_flask = multiprocessing.Process(target=flask_server)
 
+def video_stream():
+    while True:
+        cam.update_frame()
+        cam.timelapse_photo()
+        sleep(60)
+process_video = multiprocessing.Process(target=video_stream)
+
 # Start the proccesses of the garden monitor
 def start_processes():
+    # start video streaming process
+    process_video.start()
+    print("Video streaming process started.")    
     # start sensor processes
     process_sensors.start()
     print("Sensor process started.")        
     # start flask process
     process_flask.start()
     print("Flask process started.")
+    
   
 # End the processes of the garden monitor
 def end_processes():
-    # Terminate sensor process
-    process_sensors.terminate()
-    process_sensors.join()
-    print("Sensor process ended.")
-    sleep(1)
     # Terminate flask process
     process_flask.terminate()
     process_flask.join()
     print("Flask process ended.")
-    sleep(1)
+    # Terminate sensor process
+    process_sensors.terminate()
+    process_sensors.join()
+    print("Sensor process ended.")
+    # Terminate video streaming process
+    process_video.terminate()
+    process_video.join()
+    print("Video streaming process ended.")
 
 #####################
 # MAIN PROGRAM LOOP #
 #####################
 if __name__ == '__main__':
-    print(__name__)
     lamp_relay.turn_on()
     sleep(1)
     lamp_relay.turn_off()
@@ -108,6 +135,5 @@ if __name__ == '__main__':
         end_processes()
         # Exit program
         print("Exiting program.")
-        sleep(1)
         sys.exit(0)
 
