@@ -11,26 +11,19 @@
 
 **Weekly Update 2020-12-14:**
 
-Accomplishments for this week:
-- USB camera video capture implemented through OpenCV
-- Test Flask server running and live video feed operational
-- Running sensor collection and Flask server on separate processes for multitasking
-- Restructured main program loop to be more organized and exit gracefully
+Progress of this last week:
+- Timelapse photos taken on 5 minute intervals and stored to memory
+- Databse connectivity and storage of sensor data working
+- Updated the UI of the Flask page to look nicer
 
 In development for next week:
-- Update Flask template to be more user friendly and provide more data
-- Database connections and management through SQLite
+- Controling lamp/pump relays through Flask page
+- Historical view of sensor readings
 - Automated controls based on plant metrics
+- Updating documentation, including code commenting and wiring schematics
 
-References for Flask and video streaming:
-- https://projects.raspberrypi.org/en/projects/python-web-server-with-flask
-- https://stackoverflow.com/questions/35616639/python-multiprocessing-in-flask
-
-References for threading and multiprocessing libraries:
-- https://stackoverflow.com/questions/3044580/multiprocessing-vs-threading-python
-- https://cuyu.github.io/python/2016/08/15/Terminate-multiprocess-in-Python-correctly-and-gracefully
-- https://stackoverflow.com/questions/39258616/running-two-process-simultaneously
-- https://stackoverflow.com/questions/3044580/multiprocessing-vs-threading-python
+References for UI templates:
+- https://www.os-templates.com/free-basic-html5-templates
 
 ***
 
@@ -44,7 +37,7 @@ Accomplishments for this week:
 
 In development for next week:
 - Update Flask template to be more user friendly and provide more data
-- Database connections and management through SQLite
+- Database connections and management through SQLite3
 - Automated controls based on plant metrics
 
 References for Flask and video streaming:
