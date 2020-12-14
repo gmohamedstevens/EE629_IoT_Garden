@@ -35,8 +35,8 @@ import datetime
 # INITIALIZATION #
 ##################
 # Control objects for controlling relays 
-pump_relay = Pump("GPIO25")
-lamp_relay = Lamp("GPIO24")
+#pump_relay = Pump("GPIO25")
+#lamp_relay = Lamp("GPIO24")
 
 # Sensor objects for collecting sensor values
 light_sensor = MCPSensor(0)
@@ -85,7 +85,7 @@ def video_stream():
     while True:
         cam.update_frame()
         cam.timelapse_photo()
-        sleep(60)
+        sleep(300)
 process_video = multiprocessing.Process(target=video_stream)
 
 # Start the proccesses of the garden monitor
@@ -120,9 +120,6 @@ def end_processes():
 # MAIN PROGRAM LOOP #
 #####################
 if __name__ == '__main__':
-    lamp_relay.turn_on()
-    sleep(1)
-    lamp_relay.turn_off()
     try:
         start_processes() 
         # Loop until keyboard interrupt is thrown
