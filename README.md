@@ -13,87 +13,24 @@
 
 ***
 
-**Weekly Update 2020-12-14:**
+**Hardware Used:**
+- Raspberry Pi 3 Model B [Amazon Link](https://www.amazon.com/gp/product/B01C6Q2GSY/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1)
+- Sensor kit [Amazon Link](https://www.amazon.com/gp/product/B01J9GD3DG/ref=ppx_yo_dt_b_search_asin_image?ie=UTF8&psc=1)
+--In particular, the following parts are used:
+---
+---
+---
+- Standard breadboard and jumper wires for making electrical connections
 
-Progress of this last week:
-- Timelapse photos taken on 5 minute intervals and stored to memory
-- Databse connectivity and storage of sensor data working
-- Updated the UI of the Flask page to look nicer
-
-In development for next week:
-- Controling lamp/pump relays through Flask page
-- Historical view of sensor readings
-- Automated controls based on plant metrics
-- Updating documentation, including code commenting and wiring schematics
-
-References for UI templates:
-- https://www.os-templates.com/free-basic-html5-templates
-
-***
-
-**Weekly Update 2020-12-07:**
-
-Accomplishments for this week:
-- USB camera video capture implemented through OpenCV
-- Test Flask server running and live video feed operational
-- Running sensor collection and Flask server on separate processes for multitasking
-- Restructured main program loop to be more organized and exit gracefully
-
-In development for next week:
-- Update Flask template to be more user friendly and provide more data
-- Database connections and management through SQLite3
-- Automated controls based on plant metrics
-
-References for Flask and video streaming:
-- https://projects.raspberrypi.org/en/projects/python-web-server-with-flask
-- https://stackoverflow.com/questions/35616639/python-multiprocessing-in-flask
-
-References for threading and multiprocessing libraries:
-- https://stackoverflow.com/questions/3044580/multiprocessing-vs-threading-python
-- https://cuyu.github.io/python/2016/08/15/Terminate-multiprocess-in-Python-correctly-and-gracefully
-- https://stackoverflow.com/questions/39258616/running-two-process-simultaneously
-- https://stackoverflow.com/questions/3044580/multiprocessing-vs-threading-python
+**Python Libraries Used:**
+- GPIO Zero - For controlling GPIO pins of the Raspberry Pi
+- OpenCV - Accessing USB web camera for web page live feed and time lapse photo
+- Multiprocessing - Multitasking the functions of the monitor (sensing, web server, webcam image capture)
+- SQLite3 - Building a database for storing sensor data
+- Flask - Hosted web server 
 
 ***
-
-**Weekly Update 2020-11-29:**
-
-Since last week, the garden monitor is capable of monitoring the AC sensor input using an MCP3008 ADC converter. Also, I've used the GPIO Zero library to control the lamp and water pump through the GPIO pins.
-
-The goal for next week is to have the following tasks complete:
-- USB camera access through OpenCV - provide live feed to web app and time lapse functionality
-- Sensor and image database through SQLite - libraries have been imported
-- Web access through Flask - allows for monitoring plant metrics (historical and current) and manually controlling lamp/water pump
-- Threading - use 'threading' library to separate web access functions from sensing/control functions
-
-References for GPIO configuration:
-- https://pinout.xyz/pinout/pin10_gpio15# - Raspberry Pi Pin Map
-- https://gpiozero.readthedocs.io/en/stable/recipes.html - MCP3008 GPIO Zero Configuration
+## Electrical Schematic
+Section under construction
 
 ***
-
-**Weekly Update 2020-11-23:**
-
-I've restructured the original functionality test code and began building the class structure to read and control the modules. Also, I've begun pushing source code to GitHub.
-
-Classes started:
-- Camera - Controls webcam input and photo capture; for time-lapse
-- Sensor - Grabs sensor data; can be passed to database or help automate pump/lamp functions
-- Control - Handles automated and manual control of lamp and water pump
-Database - Collects data into database; for forwarding to user app
-
-***
-
-**Weekly Update 2020-11-15:**
-
-For the next few weeks, I will be wrapping up mt IoT Garden Monitor project. Progress and planned work are as follows:
-
-What I've already completed:
-- General model and function of the system
-- Material and parts gathered
-- Software and programming libraries reviewed and gathered
-
-My goals for completing this project:
-- Sensor input monitoring
-- Raspberry Pi/web app interactions
-- Lamp and water pump control (manual and auto)
