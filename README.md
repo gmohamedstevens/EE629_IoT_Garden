@@ -17,8 +17,8 @@
 - Raspberry Pi 3 Model B - [Amazon Link](https://www.amazon.com/gp/product/B01C6Q2GSY/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1)
 - Sensor kit - [Amazon Link](https://www.amazon.com/gp/product/B01J9GD3DG/ref=ppx_yo_dt_b_search_asin_image?ie=UTF8&psc=1)
 	- In particular, the following parts are used:
-		-
-		-
+		- ...
+		- ...
 		- MCP3008 Analog to Digital Converter
 - Standard breadboard and jumper wires for making electrical connections
 - Relay modules
