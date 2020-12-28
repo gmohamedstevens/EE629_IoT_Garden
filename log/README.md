@@ -1,8 +1,8 @@
-** 2020-12-28:**
+** 2020-12-28: **
 
 Doing a bit of restructuring of the README, going to turn this project page into more of a tutorial/how-to. Moving weekly updates into its own folder and using the root directory as the main page.
 
-** 2020-12-14:**
+** 2020-12-14: **
 
 Progress of this last week:
 - Timelapse photos taken on 5 minute intervals and stored to memory
@@ -20,7 +20,7 @@ References for UI templates:
 
 ***
 
-** 2020-12-07:**
+** 2020-12-07: **
 
 Accomplishments for this week:
 - USB camera video capture implemented through OpenCV
@@ -45,7 +45,7 @@ References for threading and multiprocessing libraries:
 
 ***
 
-* 2020-11-29:**
+** 2020-11-29: **
 
 Since last week, the garden monitor is capable of monitoring the AC sensor input using an MCP3008 ADC converter. Also, I've used the GPIO Zero library to control the lamp and water pump through the GPIO pins.
 
@@ -61,7 +61,7 @@ References for GPIO configuration:
 
 ***
 
-** 2020-11-23:**
+** 2020-11-23: **
 
 I've restructured the original functionality test code and began building the class structure to read and control the modules. Also, I've begun pushing source code to GitHub.
 
@@ -73,7 +73,7 @@ Database - Collects data into database; for forwarding to user app
 
 ***
 
-** 2020-11-15:**
+** 2020-11-15: **
 
 For the next few weeks, I will be wrapping up mt IoT Garden Monitor project. Progress and planned work are as follows:
 
