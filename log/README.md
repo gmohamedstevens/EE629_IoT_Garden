@@ -1,6 +1,11 @@
+** 2021-01-25: **
+- Did a quick update on the main README. Now all hardware and libraries are up-to-date. Next up, adding an wiring schematic and then eventually getting around to fixing multiprocessing.
+
+
 ** 2020-12-28: **
 
-Doing a bit of restructuring of the README, going to turn this project page into more of a tutorial/how-to. Moving weekly updates into its own folder and using the root directory as the main page.
+- Doing a bit of restructuring of the README, going to turn this project page into more of a tutorial/how-to. Moving weekly updates into its own folder and using the root directory as the main page.
+
 
 ** 2020-12-14: **
 
